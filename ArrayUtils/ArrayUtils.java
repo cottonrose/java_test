@@ -53,6 +53,10 @@ public class ArrayUtils{
     //5.数组截取
     //[start, end)
     public static int[] arraySub(int[] data, int start , int end){
+		if((start<0)||(end>0)||(end-start>data.length)||(start>end)){
+			System.out.println("截取失败");
+			return -1;
+		}
         int[] b = new int[end-start+1];
 		int i = 0;
 		for(i=0; start<=end; i++){
