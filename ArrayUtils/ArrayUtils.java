@@ -55,7 +55,7 @@ public class ArrayUtils{
     public static int[] arraySub(int[] data, int start , int end){
 		if((start<0)||(end>0)||(end-start>data.length)||(start>end)){
 			System.out.println("截取失败");
-			return -1;
+			return data;
 		}
         int[] b = new int[end-start+1];
 		int i = 0;
