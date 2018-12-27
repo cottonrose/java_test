@@ -28,7 +28,9 @@ public class Strings{
         System.out.println("a");
 
 
+
     }
+
      /**
      * 重复某个字符
      * 
