@@ -17,10 +17,10 @@ public class CommUtils {
     //加载配置文件，fileName为要加载的配置文件名称
     public static Properties  loadProperties(String fileName){
         Properties properties = new Properties();
-        InputStream in = CommUtils.class.getClassLoader().
-                getResourceAsStream(fileName);
+        InputStream in = CommUtils.class.getClassLoader(). //返回类的类加载器。
+                getResourceAsStream(fileName); //查找具有给定名称的资源。
         try {
-            properties.load(in);
+            properties.load(in);  //从输入字节流读取属性列表（键和元素对）。
         } catch (IOException e) {
            return null;
         }

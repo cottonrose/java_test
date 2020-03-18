@@ -48,7 +48,7 @@ public class groupChatGUI {
             JLabel jLabel = new JLabel(labelName);
             friendsPanel.add(jLabel);
         }
-        sendToServer.addKeyListener(new KeyAdapter() {
+        sendToServer.addKeyListener(new KeyAdapter() { //用于接收键盘事件的抽象适配器类
             @Override
             public void keyPressed(KeyEvent e) {
                 StringBuilder sb = new StringBuilder();

@@ -28,7 +28,7 @@ public class ConnectToServer {
 
     public ConnectToServer(){
         try {
-            client = new Socket(IP,PORT);
+            client = new Socket(IP,PORT); //创建流套接字并将其连接到指定IP地址的指定端口号。
             in = client.getInputStream();
             out = client.getOutputStream();
         } catch (IOException e) {

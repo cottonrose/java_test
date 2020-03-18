@@ -15,13 +15,14 @@ public class AccountDao extends BaseDao{
     //注册方法 insert
     public boolean userReg(User user){
         Connection connection = null;
-        PreparedStatement statement = null;
+        PreparedStatement statement = null; //表示预编译的sql语句的对象
         try {
             connection = getConnection();
             String sql = "insert into user(username, password, brief)"+
                     " values (?,?,?)";
             statement = connection.prepareStatement(sql,
-                    Statement.RETURN_GENERATED_KEYS);
+                    Statement.RETURN_GENERATED_KEYS); //创建一个默认的 PreparedStatement对象，该对象具有检索自动生成的密钥的能力。常数表示生成的密钥应该可用于检索。
+            //将指定的参数设置为给定的Java String值。
             statement.setString(1,user.getUsername());
             statement.setString(2,DigestUtils.md5Hex(user.getPassword()));
             statement.setString(3,user.getBrief());
@@ -47,7 +48,7 @@ public class AccountDao extends BaseDao{
             statement = connection.prepareStatement(sql);
             statement.setString(1,userName);
             statement.setString(2,DigestUtils.md5Hex(passWord));
-            resultSet = statement.executeQuery();
+            resultSet = statement.executeQuery(); //执行给定的SQL语句，该语句返回单个 ResultSet对象。
             if (resultSet.next()){
                 User user = getUser(resultSet);
                 return user;

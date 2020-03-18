@@ -37,12 +37,12 @@ public class CreateGroupGUI {
         this.friends = friends;
         this.connectToServer = connectToServer;
         this.friendsList = friendsList;
-        frame = new JFrame("创建群组");
-        frame.setContentPane(createGroupPanel);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(400,300);
-        frame.setLocationRelativeTo(null);
-        frame.setVisible(true);
+        frame = new JFrame("创建群组"); //创建一个新的，最初不可见的顶层窗口与指定的标题。
+        frame.setContentPane(createGroupPanel); //设置 contentPane属性。连接的嵌板
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //设置用户在此框架上启动“关闭”时默认执行的操作。
+        frame.setSize(400,300);//设置窗体的长宽
+        frame.setLocationRelativeTo(null); //设置窗口相对于指定组件的位置。为 null，则此窗口将置于屏幕的中央。
+        frame.setVisible(true);//将窗体设为可见
         //1.将在线好友以checkBox展示到界面
         friendLabelPanel.setLayout(new BoxLayout(friendLabelPanel,BoxLayout.Y_AXIS));//纵向展示
         JCheckBox[] checkBoxes = new JCheckBox[friends.size()];

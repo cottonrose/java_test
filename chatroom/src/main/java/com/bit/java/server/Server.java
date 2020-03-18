@@ -60,7 +60,7 @@ public class Server {
                         //将当前在线的所有用户名发回客户端
                         MessageVO msgToClient = new MessageVO();
                         msgToClient.setType("1");
-                        msgToClient.setContent(CommUtils.objectToJson(clients.keySet()));
+                        msgToClient.setContent(CommUtils.objectToJson(clients.keySet()));//返回clients地图中包含的键的视图
                         out.println(CommUtils.objectToJson(msgToClient));
                         //将新上线的用户信息发回给当前已上线的所有用户
                         sendUserLogin("newLogin:"+userName);
@@ -74,15 +74,17 @@ public class Server {
                         //type:2
                         //Content:myName-msg
                         //to:friendName
-                        String friendName = msgFromClient.getTo();
-                        Socket clientSocket = clients.get(friendName);
+                        String friendName = msgFromClient.getTo(); //获取客户机中的to属性，即要私聊的朋友名称
+                        Socket clientSocket = clients.get(friendName);//获取friendName键所映射的值并赋给clientSocket
                         try {
-                            PrintStream out = new PrintStream(clientSocket.getOutputStream(),
+                            PrintStream out = new PrintStream(clientSocket.getOutputStream(), //创建一个新的打印流（传的是此套接字,即朋友名称值的输出流）out
                                     true,"UTF-8");
+                            //将信息保存在msgToClient中
                             MessageVO msgToClient = new MessageVO();
                             msgToClient.setType("2");
                             msgToClient.setContent(msgFromClient.getContent());
                             System.out.println("收到私聊信息，内容为："+msgFromClient.getContent());
+                            //将msgToClient中的信息发回客户端
                             out.println(CommUtils.objectToJson(msgToClient));
 
                         } catch (IOException e) {
@@ -123,12 +125,12 @@ public class Server {
         }
         //向所有在线用户发送新用户上线信息
         private void sendUserLogin(String msg){
-            for(Map.Entry<String,Socket> entry : clients.entrySet()){
-                Socket socket = entry.getValue();
+            for(Map.Entry<String,Socket> entry : clients.entrySet()){ //client.entrySet()返回clients地图的集合视图，其元素是Map.Entry<String,Socket>类型的
+                Socket socket = entry.getValue(); //返回对应的值
                 try {
-                    PrintStream out = new PrintStream(socket.getOutputStream(),
-                            true,"UTF-8");
-                    out.println(msg);
+                    PrintStream out = new PrintStream(socket.getOutputStream(),//返回此套接字的输出流。
+                            true,"UTF-8"); //创建一个新的打印流。
+                    out.println(msg); //将上线用户通过新的打印流传送给所有在线用户
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -137,11 +139,11 @@ public class Server {
     }
 
     public static void main(String[] args) throws IOException {
-        ServerSocket serverSocket = new ServerSocket(PORT);
+        ServerSocket serverSocket = new ServerSocket(PORT);//创建一个服务器套接字并绑定到指定端口
         ExecutorService executors = Executors.newFixedThreadPool(50);
         for(int i=0;i<50;i++){
             System.out.println("等待客户端连接");
-            Socket client = serverSocket.accept();
+            Socket client = serverSocket.accept();//侦听要连接到此套接字并接受它。
             System.out.println("有新的连接，端口号为："+client.getPort());
             executors.submit(new ExecuteClient(client));
         }
